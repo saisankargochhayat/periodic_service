@@ -43,22 +43,24 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 function pingcall(arr)
 {
-  let arrMin = Math.min(...pingdata.ping);
-  let arrMax = Math.max(...pingdata.ping);
-  let arrAvg = pingdata.ping.reduce((a,b) => a + b, 0) / pingdata.ping.length;
+  let arrMin = Math.min(...arr);
+  let arrMax = Math.max(...arr);
+  let arrAvg = arr.reduce((a,b) => a + b, 0) / arr;
+  console.log(arrMin,arrMax,arrAvg);
 }
-var pingdata = {
-  ping : []
-}
-//filling dummy ping data
-for (i = 0; i < 1000; i++) {
-  pingdata.ping.push(i)
-}
+sendNrequest(10,'https://dog.ceo/api/breeds/image/random',pingcall)
+// var pingdata = {
+//   ping : []
+// }
+// //filling dummy ping data
+// for (i = 0; i < 1000; i++) {
+//   pingdata.ping.push(i)
+// }
 
 
-console.log(arrMin,arrMax,arrAvg);
 
 // redisClient.rpush(['ping',1,2,3,4],function(err,reply) {
 //   console.log(err);
