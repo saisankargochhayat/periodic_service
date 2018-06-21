@@ -49,7 +49,7 @@ function pingcall(arr)
   let arrMin = Math.min(...arr);
   let arrMax = Math.max(...arr);
   let arrAvg = arr.reduce((a,b) => a + b, 0) / arr.length;
-  console.log(arrMin,arrMax,arrAvg);
+  console.log(arrMin,arrMax,arrAvg,callCount);
   redis_key = callCount%50
   new_redis_key = redis_key.toString()
   redisClient.hmset(new_redis_key,"min",arrMin,"max",arrMax,"average",arrAvg,function(err,reply){
