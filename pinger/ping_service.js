@@ -5,7 +5,7 @@ function sendNRequests(count,website,cb){
     var currentTime = Date.now();
     var i = 0;
     function sendPing(index){
-        console.log(index)
+        // console.log(index)
         if (index >= count){
             cb(arr);
         }else{

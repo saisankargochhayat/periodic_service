@@ -43,15 +43,46 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+//main ping call function to find avg, min and max
 function pingcall(arr)
 {
   let arrMin = Math.min(...arr);
   let arrMax = Math.max(...arr);
-  let arrAvg = arr.reduce((a,b) => a + b, 0) / arr;
+  let arrAvg = arr.reduce((a,b) => a + b, 0) / arr.length;
   console.log(arrMin,arrMax,arrAvg);
+  redis_key = callCount%50
+  new_redis_key = redis_key.toString()
+  redisClient.hmset(new_redis_key,"min",arrMin,"max",arrMax,"average",arrAvg,function(err,reply){
+    console.log(err);
+    console.log(reply);
+   });
+   redisClient.hgetall(new_redis_key,function(err,reply) {
+    console.log(err);
+    console.log(reply);
+   });
 }
+// redisClient.hmset("tools","webserver","expressjs","database","mongoDB","devops","jenkins",function(err,reply){
+//   console.log(err);
+//   console.log(reply);
+//  });
+//  redisClient.hgetall("tools",function(err,reply) {
+//   console.log(err);
+//   console.log(reply);
+//  });
+var callCount = 1;
 sendNrequest(10,'https://dog.ceo/api/breeds/image/random',pingcall)
+//continuously executing the same function multiple times with a specific timer.
+
+var repeater = setInterval(function () {
+  if (callCount < 10) {
+    sendNrequest(10,'https://dog.ceo/api/breeds/image/random',pingcall)
+    callCount += 1;
+    console.log(callCount);
+  } else {
+    clearInterval(repeater);
+  }
+}, 10000);
+
 // var pingdata = {
 //   ping : []
 // }
