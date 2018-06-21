@@ -59,3 +59,4 @@ Ping.prototype = {
         this.handle = null;
     }
 }
+

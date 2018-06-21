@@ -2,8 +2,8 @@ var request = require('request');
 var statusCodes = require('http').STATUS_CODES;
 
 function Ping(opts){
-    this.website = 'google.com';
-    this.timeout = 5;
+    this.website = 'https://dog.ceo/api/breeds/image/random';
+    this.timeout = 1;
     this.handle = null;
     this.init(opts);
 }
@@ -25,12 +25,12 @@ Ping.prototype = {
     },
     isOK : function(time){
         console.log(time)
+        return time        
     },
     isNotOk : function(){
-        console.log("It is Not Okay");
+        console.log("Unable to fetch");
     },
     ping : function(){
-        console.log("Trying to ping")
         var self = this;
         try {
             var currentTime = Date.now();
@@ -61,6 +61,7 @@ Ping.prototype = {
 }
 
 var pinger = new Ping({
-    website : 'https://google.com',
-    timeout : 5000
+    website : 'https://dog.ceo/api/breeds/image/random',
+    timeout : 1000
 });
+console.log(pinger)
