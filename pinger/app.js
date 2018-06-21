@@ -43,7 +43,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+function pingcall(arr)
+{
+  let arrMin = Math.min(...pingdata.ping);
+  let arrMax = Math.max(...pingdata.ping);
+  let arrAvg = pingdata.ping.reduce((a,b) => a + b, 0) / pingdata.ping.length;
+}
 var pingdata = {
   ping : []
 }
@@ -51,9 +56,7 @@ var pingdata = {
 for (i = 0; i < 1000; i++) {
   pingdata.ping.push(i)
 }
-let arrMin = Math.min(...pingdata.ping);
-let arrMax = Math.max(...pingdata.ping);
-let arrAvg = pingdata.ping.reduce((a,b) => a + b, 0) / pingdata.ping.length;
+
 
 console.log(arrMin,arrMax,arrAvg);
 
